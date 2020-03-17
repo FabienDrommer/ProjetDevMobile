@@ -1,0 +1,37 @@
+<ons-page id="menuPage">
+
+  <ons-list-title>Lien</ons-list-title>
+  <ons-list id="links">
+    <ons-list-item tappable style="cursor: pointer" modifier="longdivider chevron"
+      onclick="window.open('https://github.com/FabienDrommer/ProjetDevMobile')"
+    >
+      <div class="left">
+        <ons-icon icon="fa-external-link" style="color: grey;"></ons-icon>
+      </div>
+      <div class="center">
+        Github du projet
+      </div>
+    </ons-list-item>
+  </ons-list>
+
+
+  <ons-list-title>Catégories par défaut</ons-list-title>
+  <ons-list id="default-category-list">
+    <ons-list-item tappable>
+      <div class="left">
+        <ons-radio name="categoryGroup" input-id="r-all" checked></ons-radio>
+      </div>
+      <label class="center" for="r-all">Tout</label>
+    </ons-list-item>
+    <ons-list-item tappable category-id="">
+      <div class="left">
+        <ons-radio name="categoryGroup" input-id="r-no"></ons-radio>
+      </div>
+      <label class="center" for="r-no">Aucune</label>
+    </ons-list-item>
+  </ons-list>
+
+  <ons-list-title>Catégories personnalisées</ons-list-title>
+  <ons-list id="custom-category-list">
+  </ons-list>
+</ons-page>
