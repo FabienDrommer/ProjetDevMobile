@@ -223,5 +223,19 @@ myApp.services = {
   ////////////////////////
   fixtures: [
 
-  ]
+  ],
+
+  ///////////////////
+  // Option Service //
+  //////////////////
+  options: {
+
+    // Remove all task.
+    removeAll: function() {
+      var taskItems = document.querySelectorAll('#tabbarPage ons-list-item');
+      for (var i = 0; i < taskItems.length; i++) {
+        myApp.services.tasks.remove(taskItems[i]);
+      }
+    },
+  }
 };
