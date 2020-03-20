@@ -8,8 +8,8 @@ O3 Alexandre
 O4 Fabien
 
 P1
-P2
-P3
+P2 Fabien
+P3 Alexandre
 P4
 
 S1
