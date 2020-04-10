@@ -2,6 +2,8 @@ SOUSA Alexandre   alexandre.sousa8@etu.univ-lorraine.fr
 DROMMER Fabien    fabien.drommer1@etu.univ-lorraine.fr
 S4AI1
 
+Platformes : Android, Browser
+
 O1 Alexandre
 O2 Fabien
 O3 Alexandre
