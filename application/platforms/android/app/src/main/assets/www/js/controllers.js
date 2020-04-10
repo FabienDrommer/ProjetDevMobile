@@ -33,7 +33,12 @@ myApp.controllers = {
     // Set functionality for 'No Category' and 'All' default categories respectively.
     myApp.services.categories.bindOnCheckboxChange(page.querySelector('#default-category-list ons-list-item[category-id=""]'));
     myApp.services.categories.bindOnCheckboxChange(page.querySelector('#default-category-list ons-list-item:not([category-id])'));
-
+    // tout suppimer
+    document.querySelector('#button-removeAll-option-list').addEventListener('click', function(e) {
+      myApp.services.options.removeAll();
+      localStorage.clear();
+    })
+    
     // Change splitter animation depending on platform.
     document.querySelector('#mySplitter').left.setAttribute('animation', ons.platform.isAndroid() ? 'overlay' : 'reveal');
   },
