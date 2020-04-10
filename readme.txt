@@ -7,7 +7,7 @@ O2 Fabien
 O3 Alexandre
 O4 Fabien
 
-P1
+P1 Alexandre : a chaque redémarrage de l'application, toutes les tâches vont dans "En attente" meme si elles étaient dans "En cours" ou "Complétée"
 P2 Fabien
 P3 Alexandre
 P4

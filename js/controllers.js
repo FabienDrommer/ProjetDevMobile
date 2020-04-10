@@ -36,6 +36,7 @@ myApp.controllers = {
     // tout suppimer
     document.querySelector('#button-removeAll-option-list').addEventListener('click', function(e) {
       myApp.services.options.removeAll();
+      localStorage.clear();
     })
     
     // Change splitter animation depending on platform.

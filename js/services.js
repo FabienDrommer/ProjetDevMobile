@@ -35,17 +35,16 @@ myApp.services = {
           var listId = (taskItem.parentElement.id === 'pending-list' && event.target.checked) ? '#current-list' : '#pending-list';
           var listId = (taskItem.parentElement.id === 'current-list' && event.target.checked) ? '#completed-list' : '#current-list';
           document.querySelector(listId).appendChild(taskItem);
-          
         });
+        myApp.services.options.saveTasks();
       };
-
-      
 
       taskItem.addEventListener('change', taskItem.data.onCheckboxChange);
 
       // Add button functionality to remove a task.
       taskItem.querySelector('.right').onclick = function() {
         myApp.services.tasks.remove(taskItem);
+        myApp.services.options.saveTasks();
       };
 
       // Add functionality to push 'details_task.html' page with the current element as a parameter.
@@ -72,6 +71,9 @@ myApp.services = {
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
       var pendingList = document.querySelector('#pending-list');
       pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
+
+      // Save data in localstorage
+      myApp.services.options.saveTasks();
     },
 
     // Modifies the inner data and current view of an existing task.
@@ -96,6 +98,9 @@ myApp.services = {
 
       // Store the new data within the element.
       taskItem.data = data;
+
+      // Save data in localstorage
+      myApp.services.options.saveTasks();
     },
 
     // Deletes a task item and its listeners.
@@ -108,6 +113,9 @@ myApp.services = {
         // Check if the category has no items and remove it in that case.
         myApp.services.categories.updateRemove(taskItem.data.category);
       });
+
+      // Save data in localstorage
+      myApp.services.options.saveTasks();
     }
   },
 
@@ -137,6 +145,9 @@ myApp.services = {
 
       // Attach the new category to the corresponding list.
       document.querySelector('#custom-category-list').appendChild(categoryItem);
+
+      // Save data in localstorage
+      myApp.services.options.saveCategories(categoryItem);
     },
 
     // On task creation/update, updates the category list adding new categories if needed.
@@ -148,6 +159,9 @@ myApp.services = {
         // If the category doesn't exist already, create it.
         myApp.services.categories.create(categoryLabel);
       }
+
+      // Save data in localstorage
+      myApp.services.options.saveCategories(categoryItem);
     },
 
     // On task deletion/update, updates the category list removing categories without tasks if needed.
@@ -159,6 +173,9 @@ myApp.services = {
         // If there are no tasks under this category, remove it.
         myApp.services.categories.remove(document.querySelector('#custom-category-list ons-list-item[category-id="' + categoryId + '"]'));
       }
+
+      // Save data in localstorage
+      myApp.services.options.saveCategories(categoryItem);
     },
 
     // Deletes a category item and its listeners.
@@ -168,6 +185,9 @@ myApp.services = {
         categoryItem.removeEventListener('change', categoryItem.updateCategoryView);
         categoryItem.remove();
       }
+      
+      // Save data in localstorage
+      myApp.services.options.saveCategories(categoryItem);
     },
 
     // Adds filtering functionality to a category item.
@@ -225,9 +245,7 @@ myApp.services = {
   ////////////////////////
   // Initial Data Service //
   ////////////////////////
-  fixtures: [
-
-  ],
+  fixtures: [],
 
   ///////////////////
   // Option Service //
@@ -241,5 +259,39 @@ myApp.services = {
         myApp.services.tasks.remove(taskItems[i]);
       }
     },
+
+    saveTasks: function() {
+      // récupère toutes les tâches et les ajoute au localStorage
+      var taskItems = document.querySelectorAll('#tabbarPage ons-list-item');
+
+      localStorage.setItem('tasks', JSON.stringify({ html: taskItems }, null, '\t'));
+    },
+
+    saveCategories: function(categoryItems) {
+      // récupère sauvegarde a chaque changement de tâche dans le localStorage
+      localStorage.setItem('saveCategories', JSON.stringify({ data: categoryItems }, null, '\t'));
+    },
+
+    loadStorage: function() {
+      // recopie depuis le localStorage les tâches enregistrées
+      let taskes = localStorage.getItem('tasks');
+      if (taskes) {
+        taskes = JSON.parse(taskes);
+        console.log(taskes.html);
+        console.log("fin de taskes");
+        console.log();
+        let count = 0;
+        for (var k in taskes.html) {
+          if (taskes.html.hasOwnProperty(k)) {
+             ++count;
+          }
+        }
+        console.log(console.log(count))
+        for(let i = 0; i < count; i++) {
+          console.log(taskes.html[i].data);
+          myApp.services.tasks.create(taskes.html[i].data);
+        }
+      }
+    }
   }
 };

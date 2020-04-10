@@ -19,6 +19,7 @@ document.addEventListener('init', function(event) {
       myApp.services.fixtures.forEach(function(data) {
         myApp.services.tasks.create(data);
       });
+      myApp.services.options.loadStorage();
     }
   }
 });
